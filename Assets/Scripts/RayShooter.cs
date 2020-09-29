@@ -11,6 +11,10 @@ public class RayShooter : MonoBehaviour
     void Start()
     {
         _camera = GetComponent<Camera>();   // Get the camera component that's attached to this object
+
+        // Hides the mouse cursor at the center of the screen
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -32,6 +36,15 @@ public class RayShooter : MonoBehaviour
         }
     }
 
+    private void OnGUI()
+    {
+        int size = 12;
+        float posX = _camera.pixelWidth / 2 - size / 4;
+        float posY = _camera.pixelHeight / 2 - size / 2;
+        GUI.Label(new Rect(posX, posY, size, size), "*");
+    }
+
+    // Coroutine that places a temporary sphere at the specified location
     private IEnumerator SphereIndicator(Vector3 pos)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);   // Create a sphere
