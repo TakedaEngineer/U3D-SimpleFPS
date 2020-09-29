@@ -15,8 +15,8 @@ public class MouseLook : MonoBehaviour
     // Variable to select the axes
     public RotationAxes axes = RotationAxes.MouseXAndY;
     // Controls the speed of horizontal and vertical rotation
-    public float sensitivityHor = 9.0f;
-    public float sensitivityVert = 9.0f;
+    public float sensitivityHor = 2.0f;
+    public float sensitivityVert = 2.0f;
 
     public float minimumVert = -45.0f;
     public float maximumVert = 45.0f;
