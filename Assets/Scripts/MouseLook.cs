@@ -38,13 +38,21 @@ public class MouseLook : MonoBehaviour
             _rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
             _rotationX = Mathf.Clamp(_rotationX, minimumVert, maximumVert); // Limit the camera angle
 
-            // Apply the new angle
+            // Directly apply the new angle
             transform.localEulerAngles = new Vector3(_rotationX, transform.localEulerAngles.y, 0);
         }
         // Both horizontal and vertical rotation
         else
         {
+            // Vertical rotation
+            _rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
+            _rotationX = Mathf.Clamp(_rotationX, minimumVert, maximumVert);
 
+            // Increment the horizontal rotation by 'delta'
+            float delta = Input.GetAxis("Mouse X") * sensitivityHor;
+
+            // Directly apply the new angle
+            transform.localEulerAngles = new Vector3(_rotationX, transform.localEulerAngles.y + delta, 0);
         }
     }
 }
