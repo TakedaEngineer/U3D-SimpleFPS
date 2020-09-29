@@ -26,9 +26,17 @@ public class RayShooter : MonoBehaviour
 
             RaycastHit hit; // Data structure about the intersection of the ray; coordinate of the intersection and what object was intersected
             if (Physics.Raycast(ray, out hit))  // The raycast fills a referenced variable (hit) with information
-            {
-                Debug.Log("Hit " + hit.point);
+            {               
+                StartCoroutine(SphereIndicator(hit.point)); // Coroutine to spawn a sphere at intersected ray location
             }
         }
+    }
+
+    private IEnumerator SphereIndicator(Vector3 pos)
+    {
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);   // Create a sphere
+        sphere.transform.position = pos;    // Place the sphere at the specified global coordinate
+        yield return new WaitForSeconds(1); // Pause coroutine for 1 second
+        Destroy(sphere);    // Remove this sphere
     }
 }
