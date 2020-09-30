@@ -7,6 +7,13 @@ public class ReactiveTarget : MonoBehaviour
     // Method called by the shooting script
     public void ReactToHit()
     {
+        WanderingAI behavior = GetComponent<WanderingAI>();
+
+        if (behavior != null)
+        {
+            // Set the target state to false to indicate the target's current state is dead
+            behavior.SetAlive(false);
+        }
         StartCoroutine(Die());
     }
 
