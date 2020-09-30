@@ -11,6 +11,9 @@ public class WanderingAI : MonoBehaviour
     // Boolean value to track whether the enemy is alive
     private bool _alive;
 
+    [SerializeField] private GameObject fireballPrefab;
+    private GameObject _fireball;
+
     void Start()
     {
         _alive = true;
@@ -29,8 +32,17 @@ public class WanderingAI : MonoBehaviour
             // Do raycasting with a circumference around the ray
             if (Physics.SphereCast(ray, 0.75f, out hit))
             {
+                GameObject hitObject = hit.transform.gameObject;
+                // Player is detected in the same way as the target object in RayShooter
+                if (hitObject.GetComponent<PlayerCharacter>() && _fireball == null)
+                {
+                    _fireball = Instantiate(fireballPrefab) as GameObject;
+                    // Place the fireball in front of the enemy and point it in the same direction
+                    _fireball.transform.position = transform.TransformPoint(Vector3.forward * 1.5f);
+                    _fireball.transform.rotation = transform.rotation;                    
+                }
                 // Target turns only when it's close enough to the obstacle
-                if (hit.distance < obstacleRange)
+                else if (hit.distance < obstacleRange)
                 {
                     // Generate a random angle and rotate the target with that new angle
                     float angle = Random.Range(-110, 110);
