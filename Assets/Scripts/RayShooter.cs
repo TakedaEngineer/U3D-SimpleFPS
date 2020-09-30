@@ -30,8 +30,18 @@ public class RayShooter : MonoBehaviour
 
             RaycastHit hit; // Data structure about the intersection of the ray; coordinate of the intersection and what object was intersected
             if (Physics.Raycast(ray, out hit))  // The raycast fills a referenced variable (hit) with information
-            {               
-                StartCoroutine(SphereIndicator(hit.point)); // Coroutine to spawn a sphere at intersected ray location
+            {
+                GameObject hitObject = hit.transform.gameObject;    // Retrieve the object that the ray hit
+                ReactiveTarget target = hitObject.GetComponent<ReactiveTarget>();   // Get the ReactiveTarget component of the target object
+                // Check if the ray hit an object with a ReactiveTarget component
+                if (target != null)
+                {
+                    target.ReactToHit();
+                }
+                else
+                {
+                    StartCoroutine(SphereIndicator(hit.point)); // Coroutine to spawn a sphere at intersected ray location
+                }
             }
         }
     }
